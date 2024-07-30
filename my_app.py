@@ -1,0 +1,55 @@
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QWidget,QPushButton, QLabel, QVBoxLayout
+
+from instr import *
+
+class MainWin(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.set_appear()
+        self.initUI()
+        self.connects()
+        self.show()
+
+
+    def set_appear(self):
+        """
+        Настройка окна
+        """
+        self.setWindowTitle(txt_title)
+        self.resize(win_width, win_height)
+        self.move(win_x, win_y)
+
+
+    def initUI(self):
+        """
+        Создание виджетов для окна
+        """
+        self.btn_next = QPushButton(txt_next)
+        self.hello_text = QLabel(txt_hello)
+        self.instruction = QLabel(txt_instruction)
+
+        self.layout_line = QVBoxLayout()
+        self.layout_line.addWidget(self.hello_text, alignment=Qt.AlignCenter)
+        self.layout_line.addWidget(self.instruction, alignment=Qt.AlignCenter)
+        self.layout_line.addWidget(self.btn_next, alignment=Qt.AlignCenter)
+
+        self.setLayout(self.layout_line)
+
+    def show_next_screen(self):
+        """
+        вызывает при клике по кнопке 'Начать' - self.btn_next
+        """
+        self.hide()
+        # Будет создаваться следующий экран из файла second_win.py
+
+    def connects(self):
+        """
+        обработка нажатия по кнопке для перехода на второй экран
+        """
+        self.btn_next.clicked.connect()
+
+app = QApplication([])
+first_win = MainWin()
+app.exec_()
